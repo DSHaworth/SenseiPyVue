@@ -65,9 +65,13 @@ def get_student(task_id):
 @app.route(f'{ROOT_PATH}/students', methods=['POST'])
 def save_student():
     if not request.json:
-        return ResponseHandler(errorMessage = "Title cannot be empty").toJSON()
-    if not request.json or not 'title' in request.json or not request.json['title']:
-        return ResponseHandler(errorMessage = "Title cannot be empty").toJSON()
+        return ResponseHandler(errorMessage = "No data submitted").toJSON(), 200
+    if not 'firstname' in request.json or not request.json['firstname']:
+        return ResponseHandler(errorMessage = "Firstname cannot be empty").toJSON(), 200
+    if not 'lastname' in request.json or not request.json['lastname']:
+        return ResponseHandler(errorMessage = "Lastname cannot be empty").toJSON(), 200
+    if not 'class' in request.json or not request.json['class']:
+        return ResponseHandler(errorMessage = "Class cannot be empty").toJSON(), 200
     student = {
         'id': students[-1]['id'] + 1,
         'firstName': request.json['firstName'],
@@ -78,6 +82,26 @@ def save_student():
     students.append(student)
     return ResponseHandler(student).toJSON()
 ####################################################
+
+@app.route(f'{ROOT_PATH}/authenticate', methods=['POST'])
+def authenticate():
+    # if not request.json:
+    #     return ResponseHandler(errorMessage = "Object not submitted").toJSON()
+    # if not request.json or not 'username' in request.json or not request.json['username']:
+    #     return ResponseHandler(errorMessage = "Username cannot be empty").toJSON()
+    # if not request.json or not 'password' in request.json or not request.json['password']:
+    #     return ResponseHandler(errorMessage = "Password cannot be empty").toJSON()
+
+    print( request.json['username'] )
+    print( request.json['password'] )
+
+    authUser = {
+        'username': request.json['username'],
+        'roles': ['Admin']
+        # 'class': request.json.get('class', False)
+    }
+
+    return ResponseHandler(authUser).toJSON(), 200
 
 if __name__ == '__main__':
     app.run()
