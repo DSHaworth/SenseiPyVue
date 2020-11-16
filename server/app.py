@@ -48,6 +48,9 @@ students = [
     },
 ]
 
+def requestJsonPropInvalid(request, prop):
+    return not prop in request.json or not request.json[prop]
+
 # Routes
 # Students
 ####################################################
@@ -85,15 +88,12 @@ def save_student():
 
 @app.route(f'{ROOT_PATH}/authenticate', methods=['POST'])
 def authenticate():
-    # if not request.json:
-    #     return ResponseHandler(errorMessage = "Object not submitted").toJSON()
-    # if not request.json or not 'username' in request.json or not request.json['username']:
-    #     return ResponseHandler(errorMessage = "Username cannot be empty").toJSON()
-    # if not request.json or not 'password' in request.json or not request.json['password']:
-    #     return ResponseHandler(errorMessage = "Password cannot be empty").toJSON()
-
-    print( request.json['username'] )
-    print( request.json['password'] )
+    if not request.json:
+        return ResponseHandler(errorMessage = "Object not submitted").toJSON()
+    if requestJsonPropInvalid(request, 'username'): 
+        return ResponseHandler(errorMessage = "Username cannot be empty").toJSON()
+    if requestJsonPropInvalid(request, 'password'): 
+        return ResponseHandler(errorMessage = "Password cannot be empty").toJSON()
 
     authUser = {
         'username': request.json['username'],
