@@ -14,17 +14,17 @@
         <md-list>
           <md-list-item to="/">
             <md-icon>move_to_inbox</md-icon>
-            <span class="md-list-item-text">Inbox</span>
+            <span class="md-list-item-text">Home</span>
           </md-list-item>
 
           <md-list-item to="/about">
             <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sent Mail</span>
+            <span class="md-list-item-text">About</span>
           </md-list-item>
 
-          <md-list-item>
+          <md-list-item  to="/login">
             <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
+            <span class="md-list-item-text">Login</span>
           </md-list-item>
 
           <md-list-item>
